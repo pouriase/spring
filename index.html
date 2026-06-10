@@ -31,6 +31,7 @@
             position: relative;
         }
         h2 { color: #ff4d6d; margin-bottom: 20px; line-height: 1.4; }
+        p { color: #555; margin-bottom: 15px; }
         .btn {
             background-color: #ff4d6d;
             color: white;
@@ -51,16 +52,30 @@
         }
         .step { display: none; width: 100%; }
         .step.active { display: flex; flex-direction: column; align-items: center; }
-        input {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
+        
+        /* استایل بخش تاریخ شمسی و مکان */
+        input, select {
+            width: 85%;
+            padding: 12px;
+            margin: 8px 0;
             border: 2px solid #ffc2d1;
             border-radius: 100px;
-            font-size: 16px;
+            font-size: 15px;
             text-align: center;
             outline: none;
         }
+        .date-container {
+            display: flex;
+            gap: 5px;
+            width: 85%;
+            margin: 8px 0;
+        }
+        .date-container select {
+            width: 33%;
+            border-radius: 15px;
+            padding: 10px 5px;
+        }
+
         .food-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -83,7 +98,7 @@
 <body>
 
     <audio id="romanticMusic" loop preload="auto" class="hidden-audio">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://irsv.upmusics.com/AliBZ/love%20story%20(320).mp3" type="audio/mpeg">
     </audio>
 
     <div class="card">
@@ -123,22 +138,47 @@
 
         <div id="step3" class="step">
             <h2>Yay! Let's plan it 🥰</h2>
-            <p>Pick a date and time:</p>
-            <input type="datetime-local" id="dateInput">
+            <p>Pick a date and time (Solar Hijri):</p>
+            
+            <div class="date-container">
+                <select id="shDay">
+                    <option value="">Day</option>
+                    <script>for(let i=1;i<=31;i++) document.write(`<option value="${i}">${i}</option>`);</script>
+                </select>
+                <select id="shMonth">
+                    <option value="">Month</option>
+                    <option value="Farvardin">Farvardin</option>
+                    <option value="Ordibehesht">Ordibehesht</option>
+                    <option value="Khordad">Khordad</option>
+                    <option value="Tir">Tir</option>
+                    <option value="Mordad">Mordad</option>
+                    <option value="Shahrivar">Shahrivar</option>
+                    <option value="Mehr">Mehr</option>
+                    <option value="Aban">Aban</option>
+                    <option value="Azar">Azar</option>
+                    <option value="Dey">Dey</option>
+                    <option value="Bahman">Bahman</option>
+                    <option value="Esfand">Esfand</option>
+                </select>
+                <select id="shYear">
+                    <option value="1405">1405</option>
+                    <option value="1406">1406</option>
+                </select>
+            </div>
+            
+            <input type="text" id="timeInput" placeholder="Time (e.g. 19:30)">
             <input type="text" id="locationInput" placeholder="Where should we go?">
-            <button class="btn" onclick="sendToWhatsApp()">Finish ❤️</button>
+            <button class="btn" onclick="sendToTelegram()">Finish ❤️</button>
         </div>
 
         <div id="step4" class="step">
             <h2>It's a Date, Bahar! 💖</h2>
             <p id="romanticMessage">I can't wait to spend this time with you. You mean the world to me, and I'm counting down the minutes! See you soon, beautiful. ✨</p>
+            <p style="font-size: 13px; color: #ff4d6d; font-weight: bold;">(Your answers are copied! Please paste them to me in Telegram 🥰)</p>
         </div>
     </div>
 
-    <script {nonce}>
-        // شماره خودت رو اینجا با ۹۸ بدون صفر اول بنویس
-        const myPhoneNumber = "9899304408840"; 
-
+    <script>
         let selectedFoods = [];
 
         function nextStep(stepNumber) {
@@ -170,14 +210,25 @@
             }
         }
 
-        function sendToWhatsApp() {
-            const date = document.getElementById('dateInput').value;
+        function sendToTelegram() {
+            const day = document.getElementById('shDay').value || "??";
+            const month = document.getElementById('shMonth').value || "??";
+            const year = document.getElementById('shYear').value;
+            const time = document.getElementById('timeInput').value || "Not set";
             const location = document.getElementById('locationInput').value || "Surprise";
             const foods = selectedFoods.length > 0 ? selectedFoods.join(', ') : "Whatever you want";
 
-            const message = `Hey! I filled out the date form 😍%0A%0A🍕 Food: ${foods}%0A📅 Date: ${date}%0A📍 Location: ${location}`;
+            // ساخت متن نهایی به انگلیسی
+            const messageText = `Hey! I filled out the date form 😍\n\n🍕 Food: ${foods}\n📅 Date: ${year}/${month}/${day}\n⏰ Time: ${time}\n📍 Location: ${location}`;
             
-            window.open(`https://api.whatsapp.com/send?phone=${myPhoneNumber}&text=${message}`, '_blank');
+            // کپی خودکار متن فرم در کلیپ‌بورد گوشی بهار برای راحتی کار
+            navigator.clipboard.writeText(messageText).then(() => {
+                // باز کردن مستقیم چت تلگرام پوریا
+                window.open(`https://t.me/Pouria_ebrahimi`, '_blank');
+            }).catch(() => {
+                window.open(`https://t.me/Pouria_ebrahimi`, '_blank');
+            });
+
             nextStep(4);
         }
     </script>
