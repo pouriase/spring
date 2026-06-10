@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقدیم به بهار عزیزم</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 90%;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        h2 { color: #ff4d6d; margin-bottom: 20px; line-height: 1.6; }
+        .btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        #noBtn {
+            background-color: #6c757d;
+            position: absolute;
+            transition: all 0.2s ease;
+            z-index: 999;
+        }
+        .step { display: none; width: 100%; }
+        .step.active { display: flex; flex-direction: column; align-items: center; }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ffc2d1;
+            border-radius: 100px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .food-item {
+            border: 2px solid #ffe5ec;
+            border-radius: 15px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .food-item:hover { border-color: #ff4d6d; background-color: #ffe5ec; }
+        .food-item.selected { border-color: #ff4d6d; background-color: #ff4d6d; color: white; }
+        .food-emoji { font-size: 30px; display: block; margin-bottom: 5px; }
+        .hidden-audio { display: none; }
+    </style>
+</head>
+<body>
+
+    <audio id="romanticMusic" loop class="hidden-audio">
+        <source src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Love+Story+Piano&filename=mt/mtYyMzc4OTMxMjIzNzky_p3Z_2b_2bc_2fU9F0.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card">
+        <div id="step1" class="step active">
+            <h2>بهار عزیزم دوست داری باهم دیت بزاریم؟ 🌹</h2>
+            <div style="margin-top: 50px; height: 60px;">
+                <button class="btn" id="yesBtn" onclick="nextStep(2); playMusic()">بله! 🥰</button>
+                <button class="btn" id="noBtn" onmouseover="moveNoButton()">خیر</button>
+            </div>
+        </div>
+
+        <div id="step2" class="step">
+            <h2>هورااا! بیا برنامه‌ریزی کنیم 🥰</h2>
+            <p>تاریخ و ساعت رو انتخاب کن:</p>
+            <input type="datetime-local" id="dateInput">
+            <input type="text" id="locationInput" placeholder="کجا بریم؟">
+            <button class="btn" onclick="nextStep(3)">مرحله بعد ➡️</button>
+        </div>
+
+        <div id="step3" class="step">
+            <h2>چی بخوریم؟ 🍕</h2>
+            <p>غذاهایی که دوست داری رو انتخاب کن:</p>
+            <div class="food-grid">
+                <div class="food-item" onclick="toggleFood(this, 'همبرگر')">
+                    <span class="food-emoji">🍔</span><span>همبرگر</span>
+                </div>
+                <div class="food-item" onclick="toggleFood(this, 'پیتزا')">
+                    <span class="food-emoji">🍕</span><span>پیتزا</span>
+                </div>
+                <div class="food-item" onclick="toggleFood(this, 'کباب')">
+                    <span class="food-emoji">🌯</span><span>کباب</span>
+                </div>
+                <div class="food-item" onclick="toggleFood(this, 'پاستا')">
+                    <span class="food-emoji">🍝</span><span>پاستا</span>
+                </div>
+                <div class="food-item" onclick="toggleFood(this, 'قهوه')">
+                    <span class="food-emoji">☕</span><span>کافه و قهوه</span>
+                </div>
+                <div class="food-item" onclick="toggleFood(this, 'مرغ سوخاری')">
+                    <span class="food-emoji">🍗</span><span>مرغ سوخاری</span>
+                </div>
+            </div>
+            <button class="btn" style="margin-top: 20px;" onclick="sendToWhatsApp()">ثبت و ارسال به واتس‌اپ ❤️</button>
+        </div>
+
+        <div id="step4" class="step">
+            <h2>قرارمون فیکس شد بهار من! 💖</h2>
+            <p id="romanticMessage">لحظه‌شماری می‌کنم برای دیدنت. تو برای من خیلی عزیزی و مطمئنم این دیت بهترین خاطره‌مون میشه. ✨</p>
+        </div>
+    </div>
+
+    <script>
+        // شماره واتس‌اپ خودت رو اینجا با فرمت زیر بنویس (مثال: 989123456789)
+        const myPhoneNumber = "989304408840"; 
+
+        let selectedFoods = [];
+
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function playMusic() {
+            const audio = document.getElementById('romanticMusic');
+            audio.play().catch(e => console.log("Music error: Playback requires user interaction."));
+        }
+
+        function toggleFood(element, foodName) {
+            element.classList.toggle('selected');
+            if (element.classList.contains('selected')) {
+                selectedFoods.push(foodName);
+            } else {
+                selectedFoods = selectedFoods.filter(item => item !== foodName);
+            }
+        }
+
+        function sendToWhatsApp() {
+            const date = document.getElementById('dateInput').value;
+            const location = document.getElementById('locationInput').value || "هنوز مشخص نیست";
+            const foods = selectedFoods.length > 0 ? selectedFoods.join('، ') : "هرچی تو بگی";
+
+            const message = `سلام عزیزم! من فرم دیت رو پر کردم 😍%0A%0A📅 تاریخ: ${date}%0A📍 مکان: ${location}%0A🍕 غذاها: ${foods}`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=${myPhoneNumber}&text=${message}`, '_blank');
+            nextStep(4);
+        }
+    </script>
+</body>
+</html>
