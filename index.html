@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تقدیم به بهار عزیزم</title>
+    <title>For Bahar</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,7 +30,7 @@
             align-items: center;
             position: relative;
         }
-        h2 { color: #ff4d6d; margin-bottom: 20px; line-height: 1.6; }
+        h2 { color: #ff4d6d; margin-bottom: 20px; line-height: 1.4; }
         .btn {
             background-color: #ff4d6d;
             color: white;
@@ -88,55 +88,55 @@
 
     <div class="card">
         <div id="step1" class="step active">
-            <h2>بهار عزیزم دوست داری باهم دیت بزاریم؟ 🌹</h2>
+            <h2>Bahar, my dear, would you like to go on a date with me? 🌹</h2>
             <div style="margin-top: 50px; height: 60px;">
-                <button class="btn" id="yesBtn" onclick="nextStep(2); playMusic()">بله! 🥰</button>
-                <button class="btn" id="noBtn" onmouseover="moveNoButton()">خیر</button>
+                <button class="btn" id="yesBtn" onclick="nextStep(2); playMusic()">Yes! 🥰</button>
+                <button class="btn" id="noBtn" onmouseover="moveNoButton()">No</button>
             </div>
         </div>
 
         <div id="step2" class="step">
-            <h2>هورااا! بیا برنامه‌ریزی کنیم 🥰</h2>
-            <p>تاریخ و ساعت رو انتخاب کن:</p>
+            <h2>Yay! Let's plan it 🥰</h2>
+            <p>Pick a date and time:</p>
             <input type="datetime-local" id="dateInput">
-            <input type="text" id="locationInput" placeholder="کجا بریم؟">
-            <button class="btn" onclick="nextStep(3)">مرحله بعد ➡️</button>
+            <input type="text" id="locationInput" placeholder="Where should we go?">
+            <button class="btn" onclick="nextStep(3)">Next ➡️</button>
         </div>
 
         <div id="step3" class="step">
-            <h2>چی بخوریم؟ 🍕</h2>
-            <p>غذاهایی که دوست داری رو انتخاب کن:</p>
+            <h2>What are we eating? 🍕</h2>
+            <p>Pick your favorites:</p>
             <div class="food-grid">
-                <div class="food-item" onclick="toggleFood(this, 'همبرگر')">
-                    <span class="food-emoji">🍔</span><span>همبرگر</span>
+                <div class="food-item" onclick="toggleFood(this, 'Hamburger')">
+                    <span class="food-emoji">🍔</span><span>Hamburger</span>
                 </div>
-                <div class="food-item" onclick="toggleFood(this, 'پیتزا')">
-                    <span class="food-emoji">🍕</span><span>پیتزا</span>
+                <div class="food-item" onclick="toggleFood(this, 'Pizza')">
+                    <span class="food-emoji">🍕</span><span>Pizza</span>
                 </div>
-                <div class="food-item" onclick="toggleFood(this, 'کباب')">
-                    <span class="food-emoji">🌯</span><span>کباب</span>
+                <div class="food-item" onclick="toggleFood(this, 'Kebab')">
+                    <span class="food-emoji">🌯</span><span>Kebab</span>
                 </div>
-                <div class="food-item" onclick="toggleFood(this, 'پاستا')">
-                    <span class="food-emoji">🍝</span><span>پاستا</span>
+                <div class="food-item" onclick="toggleFood(this, 'Pasta')">
+                    <span class="food-emoji">🍝</span><span>Pasta</span>
                 </div>
-                <div class="food-item" onclick="toggleFood(this, 'قهوه')">
-                    <span class="food-emoji">☕</span><span>کافه و قهوه</span>
+                <div class="food-item" onclick="toggleFood(this, 'Coffee')">
+                    <span class="food-emoji">☕</span><span>Coffee</span>
                 </div>
-                <div class="food-item" onclick="toggleFood(this, 'مرغ سوخاری')">
-                    <span class="food-emoji">🍗</span><span>مرغ سوخاری</span>
+                <div class="food-item" onclick="toggleFood(this, 'Chicken')">
+                    <span class="food-emoji">🍗</span><span>Chicken</span>
                 </div>
             </div>
-            <button class="btn" style="margin-top: 20px;" onclick="sendToWhatsApp()">ثبت و ارسال به واتس‌اپ ❤️</button>
+            <button class="btn" style="margin-top: 20px;" onclick="sendToWhatsApp()">Finish ❤️</button>
         </div>
 
         <div id="step4" class="step">
-            <h2>قرارمون فیکس شد بهار من! 💖</h2>
-            <p id="romanticMessage">لحظه‌شماری می‌کنم برای دیدنت. تو برای من خیلی عزیزی و مطمئنم این دیت بهترین خاطره‌مون میشه. ✨</p>
+            <h2>It's a Date, Bahar! 💖</h2>
+            <p id="romanticMessage">I can't wait to spend this time with you. You mean the world to me, and I'm counting down the minutes! See you soon, beautiful. ✨</p>
         </div>
     </div>
 
     <script>
-        // شماره واتس‌اپ خودت رو اینجا با فرمت زیر بنویس (مثال: 989123456789)
+        // دمت گرم، یادت نره شماره خودت رو اینجا جایگزین کنی (مثال: 989123456789)
         const myPhoneNumber = "989304408840"; 
 
         let selectedFoods = [];
@@ -155,9 +155,10 @@
             noBtn.style.top = y + 'px';
         }
 
+        // پخش موزیک بی‌کلام لاو استوری بعد از زدن دکمه بله
         function playMusic() {
             const audio = document.getElementById('romanticMusic');
-            audio.play().catch(e => console.log("Music error: Playback requires user interaction."));
+            audio.play().catch(e => console.log("Music error: Interaction required."));
         }
 
         function toggleFood(element, foodName) {
@@ -171,10 +172,10 @@
 
         function sendToWhatsApp() {
             const date = document.getElementById('dateInput').value;
-            const location = document.getElementById('locationInput').value || "هنوز مشخص نیست";
-            const foods = selectedFoods.length > 0 ? selectedFoods.join('، ') : "هرچی تو بگی";
+            const location = document.getElementById('locationInput').value || "Surprise";
+            const foods = selectedFoods.length > 0 ? selectedFoods.join(', ') : "Whatever you want";
 
-            const message = `سلام عزیزم! من فرم دیت رو پر کردم 😍%0A%0A📅 تاریخ: ${date}%0A📍 مکان: ${location}%0A🍕 غذاها: ${foods}`;
+            const message = `Hey! I filled out the date form 😍%0A%0A📅 Date: ${date}%0A📍 Location: ${location}%0A🍕 Food: ${foods}`;
             
             window.open(`https://api.whatsapp.com/send?phone=${myPhoneNumber}&text=${message}`, '_blank');
             nextStep(4);
