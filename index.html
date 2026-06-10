@@ -82,15 +82,15 @@
 </head>
 <body>
 
-    <audio id="romanticMusic" loop class="hidden-audio">
-        <source src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Love+Story+Piano&filename=mt/mtYyMzc4OTMxMjIzNzky_p3Z_2b_2bc_2fU9F0.mp3" type="audio/mpeg">
+    <audio id="romanticMusic" loop preload="auto" class="hidden-audio">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <div class="card">
         <div id="step1" class="step active">
             <h2>Bahar, my dear, would you like to go on a date with me? 🌹</h2>
             <div style="margin-top: 50px; height: 60px;">
-                <button class="btn" id="yesBtn" onclick="nextStep(2); playMusic()">Yes! 🥰</button>
+                <button class="btn" id="yesBtn" onclick="playMusic(); nextStep(2);">Yes! 🥰</button>
                 <button class="btn" id="noBtn" onmouseover="moveNoButton()">No</button>
             </div>
         </div>
@@ -135,9 +135,9 @@
         </div>
     </div>
 
-    <script>
-        // شماره خودت رو اینجا بدون صفر با ۹۸ بنویس (مثال: 989123456789)
-        const myPhoneNumber = "989123456789"; 
+    <script {nonce}>
+        // شماره خودت رو اینجا با ۹۸ بدون صفر اول بنویس
+        const myPhoneNumber = "9899304408840"; 
 
         let selectedFoods = [];
 
@@ -157,7 +157,8 @@
 
         function playMusic() {
             const audio = document.getElementById('romanticMusic');
-            audio.play().catch(e => console.log("Music error."));
+            audio.muted = false;
+            audio.play().catch(e => console.log("Audio play error:", e));
         }
 
         function toggleFood(element, foodName) {
