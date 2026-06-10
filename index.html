@@ -82,28 +82,20 @@
 </head>
 <body>
 
-    <audio id="romanticMusic" loop class="hidden-audio">
-        <source src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Love+Story+Piano&filename=mt/mtYyMzc4OTMxMjIzNzky_p3Z_2b_2bc_2fU9F0.mp3" type="audio/mpeg">
+    <audio id="romanticMusic" loop preload="auto" class="hidden-audio">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <div class="card">
         <div id="step1" class="step active">
             <h2>Bahar, my dear, would you like to go on a date with me? 🌹</h2>
             <div style="margin-top: 50px; height: 60px;">
-                <button class="btn" id="yesBtn" onclick="nextStep(2); playMusic()">Yes! 🥰</button>
+                <button class="btn" id="yesBtn" onclick="playMusic(); nextStep(2);">Yes! 🥰</button>
                 <button class="btn" id="noBtn" onmouseover="moveNoButton()">No</button>
             </div>
         </div>
 
         <div id="step2" class="step">
-            <h2>Yay! Let's plan it 🥰</h2>
-            <p>Pick a date and time:</p>
-            <input type="datetime-local" id="dateInput">
-            <input type="text" id="locationInput" placeholder="Where should we go?">
-            <button class="btn" onclick="nextStep(3)">Next ➡️</button>
-        </div>
-
-        <div id="step3" class="step">
             <h2>What are we eating? 🍕</h2>
             <p>Pick your favorites:</p>
             <div class="food-grid">
@@ -126,7 +118,15 @@
                     <span class="food-emoji">🍗</span><span>Chicken</span>
                 </div>
             </div>
-            <button class="btn" style="margin-top: 20px;" onclick="sendToWhatsApp()">Finish ❤️</button>
+            <button class="btn" style="margin-top: 20px;" onclick="nextStep(3)">Next ➡️</button>
+        </div>
+
+        <div id="step3" class="step">
+            <h2>Yay! Let's plan it 🥰</h2>
+            <p>Pick a date and time:</p>
+            <input type="datetime-local" id="dateInput">
+            <input type="text" id="locationInput" placeholder="Where should we go?">
+            <button class="btn" onclick="sendToWhatsApp()">Finish ❤️</button>
         </div>
 
         <div id="step4" class="step">
@@ -136,7 +136,7 @@
     </div>
 
     <script>
-        // دمت گرم، یادت نره شماره خودت رو اینجا جایگزین کنی (مثال: 989123456789)
+        // شماره واتس‌اپ خودت رو اینجا جایگزین کن
         const myPhoneNumber = "989304408840"; 
 
         let selectedFoods = [];
@@ -155,10 +155,11 @@
             noBtn.style.top = y + 'px';
         }
 
-        // پخش موزیک بی‌کلام لاو استوری بعد از زدن دکمه بله
+        // دستور مستقیم برای پخش موزیک مکرر
         function playMusic() {
             const audio = document.getElementById('romanticMusic');
-            audio.play().catch(e => console.log("Music error: Interaction required."));
+            audio.muted = false; // مطمئن شدن از سایلنت نبودن
+            audio.play().catch(e => console.log("Playback error:", e));
         }
 
         function toggleFood(element, foodName) {
@@ -175,7 +176,7 @@
             const location = document.getElementById('locationInput').value || "Surprise";
             const foods = selectedFoods.length > 0 ? selectedFoods.join(', ') : "Whatever you want";
 
-            const message = `Hey! I filled out the date form 😍%0A%0A📅 Date: ${date}%0A📍 Location: ${location}%0A🍕 Food: ${foods}`;
+            const message = `Hey! I filled out the date form 😍%0A%0A🍕 Food: ${foods}%0A📅 Date: ${date}%0A📍 Location: ${location}`;
             
             window.open(`https://api.whatsapp.com/send?phone=${myPhoneNumber}&text=${message}`, '_blank');
             nextStep(4);
